@@ -1,0 +1,39 @@
+CREATE DATABASE IF NOT EXISTS smart_price_db;
+USE smart_price_db;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    search_query VARCHAR(255) NOT NULL,
+    title VARCHAR(500) NOT NULL,
+    amazon_price DECIMAL(10, 2) NULL,
+    amazon_url TEXT NULL,
+    flipkart_price DECIMAL(10, 2) NULL,
+    flipkart_url TEXT NULL,
+    lowest_platform VARCHAR(50) NULL,
+    lowest_price DECIMAL(10, 2) NULL,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS price_history (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    platform VARCHAR(50) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    recorded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS price_alerts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_email VARCHAR(255) NOT NULL,
+    product_query VARCHAR(255) NOT NULL,
+    target_price DECIMAL(10, 2) NOT NULL,
+    is_triggered BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

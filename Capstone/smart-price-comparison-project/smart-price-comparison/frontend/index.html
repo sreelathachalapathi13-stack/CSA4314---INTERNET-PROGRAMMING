@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart E-Commerce Price Comparison & Deal Alert Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <h1>PriceCompare<span class="badge">LIVE</span></h1>
+            <p>Real-Time Amazon vs Flipkart Price Comparison & Deal Alerts</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Search Section -->
+        <section class="search-box">
+            <input type="text" id="searchInput" placeholder="Search any product (e.g., iPhone 15, Sony WH-1000XM5, Nike Shoes)..." />
+            <button id="searchBtn" onclick="searchProduct()">Compare Live Prices</button>
+        </section>
+
+        <!-- Loader -->
+        <div id="loader" class="loader hidden">Fetching live prices from Amazon & Flipkart...</div>
+
+        <!-- Lowest Price Recommendation Banner -->
+        <section id="recommendationBanner" class="banner hidden"></section>
+
+        <!-- Comparison Cards -->
+        <section id="comparisonGrid" class="grid hidden">
+            <!-- Amazon Card -->
+            <div class="card" id="amazonCard">
+                <div class="store-header amazon-bg">Amazon.in</div>
+                <img id="amazonImg" src="" alt="Product Image" class="product-img hidden" />
+                <h3 id="amazonTitle"></h3>
+                <div class="price" id="amazonPrice"></div>
+                <a id="amazonLink" href="#" target="_blank" rel="noopener noreferrer" class="buy-btn amazon-btn">
+                    Buy Directly on Amazon &rarr;
+                </a>
+            </div>
+
+            <!-- Flipkart Card -->
+            <div class="card" id="flipkartCard">
+                <div class="store-header flipkart-bg">Flipkart</div>
+                <img id="flipkartImg" src="" alt="Product Image" class="product-img hidden" />
+                <h3 id="flipkartTitle"></h3>
+                <div class="price" id="flipkartPrice"></div>
+                <a id="flipkartLink" href="#" target="_blank" rel="noopener noreferrer" class="buy-btn flipkart-btn">
+                    Buy Directly on Flipkart &rarr;
+                </a>
+            </div>
+        </section>
+
+        <!-- Module 2: Deal Alert & Price History -->
+        <section id="alertAndChartSection" class="extras-grid hidden">
+            <div class="card">
+                <h3>Set Intelligent Price Drop Alert</h3>
+                <p class="subtext">Get notified automatically when the price hits your target.</p>
+                <form id="alertForm" onsubmit="submitAlert(event)">
+                    <input type="email" id="alertEmail" placeholder="Your Email Address" required />
+                    <input type="number" id="targetPrice" placeholder="Target Price (₹)" required />
+                    <button type="submit" class="alert-btn">Activate Deal Alert</button>
+                </form>
+                <p id="alertStatus" class="status-msg"></p>
+            </div>
+
+            <div class="card">
+                <h3>Recorded Price History</h3>
+                <canvas id="priceChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
